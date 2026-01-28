@@ -1,5 +1,3 @@
-package page_factory;
-
 import java.time.Duration;
 import java.util.Map;
 import java.util.Objects;

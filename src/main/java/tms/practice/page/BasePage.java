@@ -1,8 +1,9 @@
-package tms.practice.page_object;
+package tms.practice.page;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
@@ -14,19 +15,16 @@ public abstract class BasePage {
                      WebDriverWait wait) {
     this.driver = driver;
     this.wait = wait;
+    PageFactory.initElements(driver, this);
   }
 
   /**
-   * Ожидает загрузки экрана.
-   *
-   * @return объект экрана
+   * Ожидает загрузки экрана и возвращает объект экрана
    */
   public abstract BasePage waitForLoad();
 
   /**
-   * Проверяет, загрузился ли экран.
-   *
-   * @return {@code true}, если загрузился
+   * Проверяет, загрузился ли экран
    */
   public boolean isLoaded() {
     try {

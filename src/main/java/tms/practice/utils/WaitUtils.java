@@ -10,7 +10,7 @@ public class WaitUtils {
    *
    * @param seconds необходимое количество секунд для ожидания
    */
-  public void wait(Integer seconds) {
+  public static void waitInSeconds(Integer seconds) {
     try {
       Thread.sleep(seconds * 1000L);
     } catch (InterruptedException e) {
