@@ -2,6 +2,7 @@ package tms.practice.page.upload;
 
 import java.util.Objects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,12 +24,14 @@ public class UploadSuccessPage extends BasePage {
     super(driver, wait);
   }
 
+  @Step("Ожидаем загрузки страницы успешности загрузки файла")
   @Override
   public UploadSuccessPage waitForLoad() {
     wait.until(isTrue -> Objects.equals(title.getText(), TITLE));
     return this;
   }
 
+  @Step("Получаем название файла")
   public String getFileName() {
     return fileName.getText();
   }

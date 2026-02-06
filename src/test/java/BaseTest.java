@@ -3,10 +3,14 @@ import java.util.Map;
 import java.util.Objects;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -38,10 +42,17 @@ public abstract class BaseTest {
   }
 
   @AfterMethod(alwaysRun = true)
-  public void tearDown() {
+  public void tearDown(ITestResult result) {
     if (Objects.nonNull(driver)) {
-      driver.close();
+      if (result.getStatus() == ITestResult.FAILURE) {
+        attachScreenshot();
+      }
       driver.quit();
     }
+  }
+
+  @Attachment(value = "Screenshot (on failure)", type = "image/png")
+  private byte[] attachScreenshot() {
+    return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
   }
 }
