@@ -1,4 +1,4 @@
-package tms.practice.steps.bus.upload;
+package tms.practice.steps.upload;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;

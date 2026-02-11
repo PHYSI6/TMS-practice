@@ -1,11 +1,11 @@
-package tms.practice.steps.assertions.upload;
+package tms.practice.assertions.upload;
 
 import io.qameta.allure.Step;
 import tms.practice.page.upload.UploadSuccessPage;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static tms.practice.assertions.upload.SoftAssertionsStorage.softAssert;
 
-public class UploadSuccessAssertionSteps {
+public class UploadSuccessAssertionSteps extends AssertionSteps {
 
   private UploadSuccessPage uploadSuccessPage;
 
@@ -15,7 +15,7 @@ public class UploadSuccessAssertionSteps {
 
   @Step("Проверяем, что название файла = '{fileName}'")
   public UploadSuccessAssertionSteps assertFileName(String fileName) {
-    assertThat(fileName)
+    softAssert().assertThat(fileName)
         .as("Название загруженного файла '%s' не совпадает '%s'".formatted(fileName, uploadSuccessPage.getFileName()))
         .isEqualTo(uploadSuccessPage.getFileName());
     return this;
@@ -23,7 +23,7 @@ public class UploadSuccessAssertionSteps {
 
   @Step("Проверяем, что название файла = '{fileName}'")
   public UploadSuccessAssertionSteps assertFileName2(String fileName) {
-    assertThat(fileName + "dd")
+    softAssert().assertThat(fileName)
         .as("Название загруженного файла '%s' не совпадает '%s'".formatted(fileName, uploadSuccessPage.getFileName()))
         .isEqualTo(uploadSuccessPage.getFileName());
     return this;

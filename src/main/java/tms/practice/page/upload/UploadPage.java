@@ -3,16 +3,14 @@ package tms.practice.page.upload;
 import java.util.Objects;
 
 import io.qameta.allure.Step;
-import io.qameta.allure.Story;
-import io.qameta.allure.testng.Tag;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.FileInput;
 import tms.practice.page.BasePage;
 
-@Story("dfdsf")
-@Tag("web")
 public class UploadPage extends BasePage {
 
   private static final String TITLE = "File Uploader";
@@ -22,10 +20,10 @@ public class UploadPage extends BasePage {
   private WebElement title;
 
   @FindBy(id = "file-upload")
-  private WebElement fileUploader;
+  private FileInput fileUploader;
 
   @FindBy(id = "file-submit")
-  private WebElement uploadButton;
+  private Button uploadButton;
 
   public UploadPage(WebDriver driver,
                     WebDriverWait wait) {
@@ -47,7 +45,7 @@ public class UploadPage extends BasePage {
 
   @Step("Загружаем файл по пути '{filePath}'")
   public UploadPage upload(String filePath) {
-    fileUploader.sendKeys(filePath);
+    fileUploader.setFileToUpload(filePath);
     return this;
   }
 

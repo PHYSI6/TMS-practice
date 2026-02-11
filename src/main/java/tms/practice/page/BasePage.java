@@ -5,6 +5,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public abstract class BasePage {
 
@@ -15,7 +17,10 @@ public abstract class BasePage {
                      WebDriverWait wait) {
     this.driver = driver;
     this.wait = wait;
-    PageFactory.initElements(driver, this);
+    PageFactory.initElements(
+        new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)),
+        this
+    );
   }
 
   /**
