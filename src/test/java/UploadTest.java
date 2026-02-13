@@ -4,6 +4,7 @@ import io.qameta.allure.Story;
 import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import tms.practice.assertions.upload.UploadSuccessAssertionSteps;
+import tms.practice.page.PageFactoryManager;
 import tms.practice.page.upload.UploadSuccessPage;
 import tms.practice.steps.upload.UploadSteps;
 
@@ -18,9 +19,9 @@ public class UploadTest extends BaseTest {
     final String fileName = "base_schema.xml";
     final String filePath =
         "/Users/danborisevich/Downloads/УЧЕБА/practice-makes-perfect/src/main/resources/files/%s".formatted(fileName);
-    new UploadSteps(driver, wait)
+    new UploadSteps(driver)
         .upload(filePath);
-    new UploadSuccessAssertionSteps(new UploadSuccessPage(driver, wait))
+    new UploadSuccessAssertionSteps(PageFactoryManager.create(UploadSuccessPage.class, driver))
         .assertFileName2(fileName)
         .assertFileName(fileName)
         .assertAll();

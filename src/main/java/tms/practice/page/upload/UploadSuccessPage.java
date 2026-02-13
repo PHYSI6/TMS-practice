@@ -19,9 +19,8 @@ public class UploadSuccessPage extends BasePage {
   @FindBy(id = "uploaded-files")
   private WebElement fileName;
 
-  public UploadSuccessPage(WebDriver driver,
-                           WebDriverWait wait) {
-    super(driver, wait);
+  public UploadSuccessPage(WebDriver driver) {
+    super(driver);
   }
 
   @Step("Ожидаем загрузки страницы успешности загрузки файла")

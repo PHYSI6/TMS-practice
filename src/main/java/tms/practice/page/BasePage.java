@@ -1,5 +1,7 @@
 package tms.practice.page;
 
+import java.time.Duration;
+
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -10,13 +12,13 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 
 public abstract class BasePage {
 
+  private static final Integer WAIT_TIME = 10;
   protected final WebDriver driver;
   protected final WebDriverWait wait;
 
-  protected BasePage(WebDriver driver,
-                     WebDriverWait wait) {
+  protected BasePage(WebDriver driver) {
     this.driver = driver;
-    this.wait = wait;
+    this.wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME));
     PageFactory.initElements(
         new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)),
         this

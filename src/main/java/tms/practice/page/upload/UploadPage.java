@@ -3,10 +3,10 @@ package tms.practice.page.upload;
 import java.util.Objects;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.FileInput;
 import tms.practice.page.BasePage;
@@ -25,9 +25,8 @@ public class UploadPage extends BasePage {
   @FindBy(id = "file-submit")
   private Button uploadButton;
 
-  public UploadPage(WebDriver driver,
-                    WebDriverWait wait) {
-    super(driver, wait);
+  public UploadPage(WebDriver driver) {
+    super(driver);
   }
 
   @Step("Ожидаем загрузки страницы загрузки файла")
