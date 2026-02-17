@@ -1,8 +1,11 @@
 package tms.practice.utils;
 
+import io.qameta.allure.Step;
 import lombok.experimental.UtilityClass;
+import lombok.extern.log4j.Log4j2;
 
 @UtilityClass
+@Log4j2
 public class WaitUtils {
 
   /**
@@ -10,10 +13,13 @@ public class WaitUtils {
    *
    * @param seconds необходимое количество секунд для ожидания
    */
+  //@Step("Ожидаем '{seconds}' секунд")
   public static void waitInSeconds(Integer seconds) {
     try {
+      log.info("Ожидаем '%s' секунд".formatted(seconds));
       Thread.sleep(seconds * 1000L);
     } catch (InterruptedException e) {
+      log.error("Возникла проблема при попытке ожидания");
       throw new RuntimeException(e);
     }
   }

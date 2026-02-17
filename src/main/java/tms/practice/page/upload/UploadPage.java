@@ -3,14 +3,16 @@ package tms.practice.page.upload;
 import java.util.Objects;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.FileInput;
 import tms.practice.page.BasePage;
+import tms.practice.utils.WaitUtils;
 
+@Log4j2
 public class UploadPage extends BasePage {
 
   private static final String TITLE = "File Uploader";
