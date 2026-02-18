@@ -12,7 +12,6 @@ public class WaitUtils {
    *
    * @param seconds необходимое количество секунд для ожидания
    */
-  //@Step("Ожидаем '{seconds}' секунд")
   public static void waitInSeconds(Integer seconds) {
     try {
       log.info("Ожидаем '%s' секунд".formatted(seconds));
