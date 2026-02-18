@@ -56,7 +56,12 @@ jobs:
           when: always
 
       - run:
-          name: Create report entrypoint
+          name: Ensure test results dir exists (avoid CircleCI warning)
+          command: mkdir -p target/surefire-reports
+          when: always
+
+      - run:
+          name: Create Allure report entrypoint
           command: |
             mkdir -p target/allure-report-entry
             REPORT_DIR="target/site/allure-maven-plugin"
@@ -80,4 +85,19 @@ jobs:
           path: target/allure-report-entry/latest.html
           destination: allure-report/latest.html
 
-      - save
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: maven-{{ checksum "pom.xml" }}
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - checkstyle
+      - build:
+          requires:
+            - checkstyle
+      - test:
+          requires:
+            - build
