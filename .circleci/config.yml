@@ -1,0 +1,88 @@
+version: 2.1
+
+jobs:
+  checkstyle:
+    docker:
+      - image: cimg/openjdk:21.0
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - maven-{{ checksum "pom.xml" }}
+      - run:
+          name: Run Checkstyle
+          command: mvn -q checkstyle:check
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: maven-{{ checksum "pom.xml" }}
+
+  build:
+    docker:
+      - image: cimg/openjdk:21.0
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - maven-{{ checksum "pom.xml" }}
+      - run:
+          name: Build project
+          command: mvn -q clean compile
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: maven-{{ checksum "pom.xml" }}
+
+  test:
+    docker:
+      - image: cimg/openjdk:21.0-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - maven-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Run tests
+          command: mvn -q clean test
+
+      # генерим HTML отчёт Allure из target/allure-results
+      - run:
+          name: Generate Allure HTML report
+          command: mvn -q allure:report
+          when: always
+
+      # маленькая "точка входа" — чтобы в артефактах было что открыть одним кликом
+      - run:
+          name: Create report entrypoint
+          command: |
+            mkdir -p target/allure-report-entry
+            REPORT_DIR="target/site/allure-maven-plugin"
+            if [ -f "${REPORT_DIR}/index.html" ]; then
+              cp "${REPORT_DIR}/index.html" target/allure-report-entry/latest.html
+            fi
+          when: always
+
+      - store_test_results:
+          path: target/surefire-reports
+
+      # сырые результаты (на всякий случай)
+      - store_artifacts:
+          path: target/allure-results
+          destination: allure-results
+
+      # готовый HTML
+      - store_artifacts:
+          path: target/site/allure-maven-plugin
+          destination: allure-report
+
+      # быстрый линк
+      - store_artifacts:
+          path: target/allure-report-entry/latest.html
+          destination: allure-report/latest.html
+
+      - save_cache:
+          paths:
