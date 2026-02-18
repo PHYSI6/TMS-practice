@@ -12,7 +12,7 @@ jobs:
             - maven-{{ checksum "pom.xml" }}
       - run:
           name: Checkstyle
-          #command: mvn -q checkstyle:check
+          # command: mvn -q checkstyle:check
           command: echo "Checkstyle temporarily disabled"
       - save_cache:
           paths:
@@ -71,6 +71,18 @@ jobs:
             fi
           when: always
 
+      - run:
+          name: Zip Allure HTML report
+          command: |
+            REPORT_DIR="target/site/allure-maven-plugin"
+            if [ -d "${REPORT_DIR}" ]; then
+              cd target/site
+              zip -r allure-report.zip allure-maven-plugin
+            else
+              echo "Allure report dir not found: ${REPORT_DIR}"
+            fi
+          when: always
+
       - store_test_results:
           path: target/surefire-reports
 
@@ -81,6 +93,10 @@ jobs:
       - store_artifacts:
           path: target/site/allure-maven-plugin
           destination: allure-report
+
+      - store_artifacts:
+          path: target/site/allure-report.zip
+          destination: allure-report/allure-report.zip
 
       - store_artifacts:
           path: target/allure-report-entry/latest.html
