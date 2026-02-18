@@ -49,13 +49,11 @@ jobs:
           name: Run tests
           command: mvn -q clean test
 
-      # генерим HTML отчёт Allure из target/allure-results
       - run:
           name: Generate Allure HTML report
           command: mvn -q allure:report
           when: always
 
-      # маленькая "точка входа" — чтобы в артефактах было что открыть одним кликом
       - run:
           name: Create report entrypoint
           command: |
@@ -69,17 +67,14 @@ jobs:
       - store_test_results:
           path: target/surefire-reports
 
-      # сырые результаты (на всякий случай)
       - store_artifacts:
           path: target/allure-results
           destination: allure-results
 
-      # готовый HTML
       - store_artifacts:
           path: target/site/allure-maven-plugin
           destination: allure-report
 
-      # быстрый линк
       - store_artifacts:
           path: target/allure-report-entry/latest.html
           destination: allure-report/latest.html
