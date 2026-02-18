@@ -11,7 +11,7 @@ jobs:
           keys:
             - maven-{{ checksum "pom.xml" }}
       - run:
-          name: Run Checkstyle
+          name: Checkstyle
           command: mvn -q checkstyle:check
       - save_cache:
           paths:
@@ -28,7 +28,7 @@ jobs:
           keys:
             - maven-{{ checksum "pom.xml" }}
       - run:
-          name: Build project
+          name: Build
           command: mvn -q clean compile
       - save_cache:
           paths:
@@ -48,6 +48,7 @@ jobs:
       - run:
           name: Run tests
           command: mvn -q clean test
+          when: always
 
       - run:
           name: Generate Allure HTML report
@@ -79,5 +80,4 @@ jobs:
           path: target/allure-report-entry/latest.html
           destination: allure-report/latest.html
 
-      - save_cache:
-          paths:
+      - save
