@@ -10,7 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.FileInput;
 import tms.practice.page.BasePage;
-import tms.practice.utils.WaitUtils;
 
 @Log4j2
 public class UploadPage extends BasePage {
