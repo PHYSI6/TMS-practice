@@ -38,7 +38,7 @@ public class UploadPage extends BasePage {
     return this;
   }
 
-  @Step("Открываем страницу по url: " + URL)
+  @Step("Открываем страницу по url '" + URL + "'")
   public UploadPage open() {
     driver.get(URL);
     return this;
