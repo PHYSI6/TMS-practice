@@ -7,6 +7,7 @@ pipeline {
         jdk 'jdk21'
     }
 
+
     stages {
         stage('Checkout') {
             steps {
