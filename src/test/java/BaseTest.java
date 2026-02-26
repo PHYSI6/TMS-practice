@@ -1,35 +1,32 @@
-import java.util.Objects;
-
-import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import tms.practice.config.DriverFactory;
 
 public abstract class BaseTest {
 
-  protected WebDriver driver;
+  @BeforeSuite
+  public void allureSetup() {
+    Configuration.timeout = 10000; // ожидание элементов
+    Configuration.pageLoadTimeout = 20000; // загрузка страницы
+    Configuration.pollingInterval = 200; // частота проверок
+    SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+        .screenshots(true)
+        .savePageSource(true));
+  }
 
   @BeforeMethod
   public void setUp() {
-    driver = DriverFactory.getInstance();
+    Selenide.open(DriverFactory.createChrome());
   }
 
   @AfterMethod(alwaysRun = true)
   public void tearDown(ITestResult result) {
-    if (Objects.nonNull(driver)) {
-      if (result.getStatus() == ITestResult.FAILURE) {
-        attachScreenshot();
-      }
-      driver.quit();
-    }
-  }
-
-  @Attachment(value = "Screenshot (on failure)", type = "image/png")
-  private byte[] attachScreenshot() {
-    return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    Selenide.closeWebDriver();
   }
 }

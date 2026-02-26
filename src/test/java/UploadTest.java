@@ -1,10 +1,12 @@
+import java.nio.file.Path;
+
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 import io.qameta.allure.TmsLink;
 import org.testng.annotations.Test;
 import tms.practice.assertions.upload.UploadSuccessAssertionSteps;
-import tms.practice.page.PageFactoryManager;
 import tms.practice.page.upload.UploadSuccessPage;
 import tms.practice.steps.upload.UploadSteps;
 
@@ -17,11 +19,11 @@ public class UploadTest extends BaseTest {
   @TmsLink("123123")
   public void fileUpload() {
     final String fileName = "base_schema.xml";
-    final String filePath =
-        "/Users/danborisevich/Downloads/УЧЕБА/practice-makes-perfect/src/main/resources/files/%s".formatted(fileName);
-    new UploadSteps(driver)
+    final String filePath = Path.of("src", "main", "resources", "files", fileName).toAbsolutePath().toString();
+    new UploadSteps()
         .upload(filePath);
-    new UploadSuccessAssertionSteps(PageFactoryManager.create(UploadSuccessPage.class, driver))
+    //new UploadSuccessAssertionSteps(PageFactoryManager.create(UploadSuccessPage.class))
+    new UploadSuccessAssertionSteps(Selenide.page(UploadSuccessPage.class))
         .assertFileName2(fileName)
         .assertFileName(fileName)
         .assertAll();
