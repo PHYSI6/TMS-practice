@@ -1,17 +1,18 @@
+package tms.practice.hooks;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
 import tms.practice.config.DriverFactory;
 
-public abstract class BaseTest {
+public class Hooks {
 
-  @BeforeSuite
-  public void allureSetup() {
+  @BeforeAll
+  public static void allureSetup() {
     Configuration.timeout = 10000; // ожидание элементов
     Configuration.pageLoadTimeout = 20000; // загрузка страницы
     Configuration.pollingInterval = 200; // частота проверок
@@ -20,13 +21,13 @@ public abstract class BaseTest {
         .savePageSource(true));
   }
 
-  @BeforeMethod
-  public void setUp() {
+  @Before
+  public static void setUp() {
     Selenide.open(DriverFactory.createChrome());
   }
 
-  @AfterMethod(alwaysRun = true)
-  public void tearDown(ITestResult result) {
+  @After
+  public static void tearDown() {
     Selenide.closeWebDriver();
   }
 }
