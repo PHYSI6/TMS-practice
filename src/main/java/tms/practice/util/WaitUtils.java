@@ -1,4 +1,4 @@
-package tms.practice.utils;
+package tms.practice.util;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;

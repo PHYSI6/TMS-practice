@@ -1,4 +1,4 @@
-package tms.practice.utils;
+package tms.practice.util;
 
 public class Program {
 
