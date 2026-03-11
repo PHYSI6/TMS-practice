@@ -2,12 +2,10 @@ package tms.practice.response.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tms.practice.request.Rq;
 
 @Builder
 @Data
@@ -15,11 +13,7 @@ import tms.practice.request.Rq;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User implements Rq {
-  private Integer id;
-  private String email;
-  @JsonProperty("first_name")
-  private String firstName;
-  @JsonProperty("last_name")
-  private String lastName;
+public class Support {
+  private String url;
+  private String text;
 }
