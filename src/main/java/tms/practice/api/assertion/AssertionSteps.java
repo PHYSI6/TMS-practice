@@ -1,0 +1,23 @@
+package tms.practice.api.assertion;
+
+import java.util.Collection;
+
+import static tms.practice.api.assertion.SoftAssertionsStorage.softAssert;
+
+public class AssertionSteps {
+
+  public void assertAll() {
+    softAssert().assertAll();
+  }
+
+  public AssertionSteps assertCollectionSize(int expectedSize,
+                                             int actualSize) {
+    softAssert().assertThat(expectedSize)
+        .isEqualTo(actualSize);
+    return this;
+  }
+
+  public <T> void assertCollectionsElementsInAnyOrder(Collection<T> actualCollection,
+                                                      Collection<T> expectedCollection) {
+  }
+}
