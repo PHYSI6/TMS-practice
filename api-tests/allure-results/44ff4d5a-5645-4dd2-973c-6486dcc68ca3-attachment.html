@@ -1,0 +1,32 @@
+<div>PUT to http://localhost:8080/users/35</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;id&quot;: 35,
+    &quot;username&quot;: &quot;gaynell.howell&quot;,
+    &quot;password&quot;: &quot;$2a$10$hReup.H/p3LntNcVG0Mof.9eW7AXJmHLBBsmYLeYznpOzHtiJAwX6&quot;,
+    &quot;role&quot;: &quot;ADMIN&quot;
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjozNiwic3ViIjoiY2hhcmxleS5rb3NzIiwiaWF0IjoxNzczNzYwMTY2LCJleHAiOjE3NzM3NjM3NjZ9.9AXikOuMySKmO0346OtNnu8MBZlhu7eLKjU3389Cy_E</div>
+            <div>Accept: */*</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X PUT &#39;http://localhost:8080/users/35&#39; -H &#39;Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjozNiwic3ViIjoiY2hhcmxleS5rb3NzIiwiaWF0IjoxNzczNzYwMTY2LCJleHAiOjE3NzM3NjM3NjZ9.9AXikOuMySKmO0346OtNnu8MBZlhu7eLKjU3389Cy_E&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;id&quot;: 35,
+    &quot;username&quot;: &quot;gaynell.howell&quot;,
+    &quot;password&quot;: &quot;$2a$10$hReup.H/p3LntNcVG0Mof.9eW7AXJmHLBBsmYLeYznpOzHtiJAwX6&quot;,
+    &quot;role&quot;: &quot;ADMIN&quot;
+}&#39;
+    </div>
+
