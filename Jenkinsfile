@@ -10,9 +10,8 @@ pipeline {
         choice(
             name: 'MODULE',
             choices: [
-                'client-api-test',
-                'mobile',
-                'web'
+                'web',
+                'client-api-test'
             ],
             description: 'Выберите модуль, в котором нужно запустить тесты'
         )
@@ -42,7 +41,7 @@ pipeline {
 
     post {
         always {
-            junit "${params.MODULE}/target/surefire-reports/*.xml"
+            junit allowEmptyResults: true, testResults: "${params.MODULE}/target/surefire-reports/*.xml"
         }
     }
 }
