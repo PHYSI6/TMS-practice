@@ -34,14 +34,14 @@ pipeline {
             steps {
                 allure includeProperties: false,
                        jdk: '',
-                       results: [[path: "${params.MODULE}/target/allure-results"]]
+                       results: [[path: 'target/allure-results']]
             }
         }
     }
 
     post {
         always {
-            junit allowEmptyResults: true, testResults: "${params.MODULE}/target/surefire-reports/*.xml"
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
         }
     }
 }
