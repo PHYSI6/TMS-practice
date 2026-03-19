@@ -2,11 +2,21 @@ pipeline {
     agent any
 
     tools {
-        // названия должны совпадать с теми, что вы задали в Global Tool Configuration
         maven 'maven'
         jdk 'jdk21'
     }
 
+    parameters {
+        choice(
+            name: 'MODULE',
+            choices: [
+                'client-api-test',
+                'mobile',
+                'web'
+            ],
+            description: 'Выберите модуль, в котором нужно запустить тесты'
+        )
+    }
 
     stages {
         stage('Checkout') {
@@ -17,7 +27,7 @@ pipeline {
 
         stage('Run tests') {
             steps {
-                sh 'mvn clean test'
+                sh "mvn clean test -pl ${params.MODULE} -am"
             }
         }
 
@@ -25,14 +35,14 @@ pipeline {
             steps {
                 allure includeProperties: false,
                        jdk: '',
-                       results: [[path: 'target/allure-results']]
+                       results: [[path: "${params.MODULE}/target/allure-results"]]
             }
         }
     }
 
     post {
         always {
-            junit 'target/surefire-reports/*.xml'
+            junit "${params.MODULE}/target/surefire-reports/*.xml"
         }
     }
 }

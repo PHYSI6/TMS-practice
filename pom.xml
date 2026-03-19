@@ -7,6 +7,16 @@
     <groupId>tms.practice</groupId>
     <artifactId>practice-makes-perfect</artifactId>
     <version>1.0.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>database</module>
+        <module>api-service</module>
+        <module>common</module>
+        <module>client-api-test</module>
+        <module>web</module>
+        <module>mobile</module>
+        <module>web-test</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -162,13 +172,6 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
             <version>6.0.0</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.7.10</version>
             <scope>compile</scope>
         </dependency>
 
