@@ -26,7 +26,7 @@ import static io.restassured.RestAssured.given;
 public class ApiService {
   protected final HttpClientConfig httpClientConfig = CurlRestAssuredConfigFactory.createConfig().getHttpClientConfig();
 
-  protected final static String BASE_URL = "http://localhost:8080";
+  protected final static String BASE_URL = "http://localhost:5030";
 
   protected <T> T get(Request request) {
     return execute(Method.GET, request);
